@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shop/models/product.dart';
 import 'package:shop/exceptions/http_exception.dart';
+import 'package:shop/utils/constants.dart';
 
 class ProductList with ChangeNotifier {
-  final _baseUrl = 'https://shop-92776-default-rtdb.firebaseio.com/products';
   final List<Product> _items = [];
 
   List<Product> get items {
@@ -21,7 +21,8 @@ class ProductList with ChangeNotifier {
   }
 
   Future<void> loadProducts() async {
-    final response = await http.get(Uri.parse('$_baseUrl.json'));
+    final response =
+        await http.get(Uri.parse('${Constants.PRODUCT_BASE_URL}.json'));
     _items.clear();
     if (response.body == 'null') return;
 
@@ -29,12 +30,12 @@ class ProductList with ChangeNotifier {
 
     data.forEach((productId, productData) {
       _items.add(Product(
-        id: productId,
-        name: productData["name"],
-        description: productData["description"],
-        price: productData["price"],
-        imageUrl: productData["imageUrl"],
-      ));
+          id: productId,
+          name: productData["name"],
+          description: productData["description"],
+          price: productData["price"],
+          imageUrl: productData["imageUrl"],
+          isFavorite: productData["isFavorite"]));
     });
     notifyListeners();
   }
@@ -59,7 +60,8 @@ class ProductList with ChangeNotifier {
     int index = _items.indexWhere((p) => p.id == product.id);
 
     if (index >= 0) {
-      await http.patch(Uri.parse('$_baseUrl/${product.id}.json'),
+      await http.patch(
+          Uri.parse('${Constants.PRODUCT_BASE_URL}/${product.id}.json'),
           body: jsonEncode({
             "name": product.name,
             "description": product.description,
@@ -83,7 +85,7 @@ class ProductList with ChangeNotifier {
       notifyListeners();
 
       final response = await http.delete(
-        Uri.parse('$_baseUrl/${product.id}.json'),
+        Uri.parse('${Constants.PRODUCT_BASE_URL}/${product.id}.json'),
       );
 
       if (response.statusCode >= 400) {
@@ -98,14 +100,15 @@ class ProductList with ChangeNotifier {
   }
 
   Future<void> addProduct(Product product) async {
-    final response = await http.post(Uri.parse('$_baseUrl.json'),
-        body: jsonEncode({
-          "name": product.name,
-          "description": product.description,
-          "price": product.price,
-          "imageUrl": product.imageUrl,
-          "isFavorite": product.isFavorite
-        }));
+    final response =
+        await http.post(Uri.parse('${Constants.PRODUCT_BASE_URL}.json'),
+            body: jsonEncode({
+              "name": product.name,
+              "description": product.description,
+              "price": product.price,
+              "imageUrl": product.imageUrl,
+              "isFavorite": product.isFavorite
+            }));
 
     final id = jsonDecode(response.body)['name'];
     _items.add(Product(
