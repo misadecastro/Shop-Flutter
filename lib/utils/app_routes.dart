@@ -1,14 +1,10 @@
+// ignore_for_file: constant_identifier_names
+
 class AppRoutes {
-  // ignore: constant_identifier_names
-  static const String PRODUCT_DETAIL = '/product-detail';
-  // ignore: constant_identifier_names
-  static const String CART = '/cart';
-  // ignore: constant_identifier_names
-  static const String HOME = '/';
-  // ignore: constant_identifier_names
-  static const String ORDERS = '/orders';
-  // ignore: constant_identifier_names
-  static const String PRODUCTS = '/products';
-  // ignore: constant_identifier_names
-  static const String PRODUCT_FORM = '/product-form';
+  static const auth_or_home = '/';
+  static const productDetail = '/product-detail';
+  static const cart = '/cart';
+  static const orders = '/orders';
+  static const products = '/products';
+  static const productForm = '/product-form';
 }

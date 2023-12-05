@@ -26,7 +26,7 @@ class ProductItem extends StatelessWidget {
           IconButton(
             onPressed: () {
               Navigator.of(context).pushNamed(
-                AppRoutes.PRODUCT_FORM,
+                AppRoutes.productForm,
                 arguments: product,
               );
             },

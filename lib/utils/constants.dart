@@ -5,4 +5,6 @@ class Constants {
       'https://shop-92776-default-rtdb.firebaseio.com/products';
   static const String ORDER_BASE_URL =
       'https://shop-92776-default-rtdb.firebaseio.com/orders';
+  static const String USER_FAVORITE_URL =
+      'https://shop-92776-default-rtdb.firebaseio.com/userFavorites';
 }
