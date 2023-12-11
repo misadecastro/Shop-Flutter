@@ -9,7 +9,7 @@ import 'package:shop/utils/constants.dart';
 class ProductList with ChangeNotifier {
   final String _token;
   final String _userId;
-  List<Product> _items;
+  final List<Product> _items;
 
   ProductList([
     this._token = '',
@@ -50,7 +50,7 @@ class ProductList with ChangeNotifier {
         id: productId,
         name: productData["name"],
         description: productData["description"],
-        price: productData["price"],
+        price: productData["price"].toDouble(),
         imageUrl: productData["imageUrl"],
         isFavorite: isFavorite,
       ));
